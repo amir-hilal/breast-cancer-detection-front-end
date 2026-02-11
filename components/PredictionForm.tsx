@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from 'react';
 import { apiClient } from '@/lib/api';
-import { FEATURE_NAMES, EXAMPLE_FEATURES } from '@/lib/types';
 import type { PredictionResponse } from '@/lib/types';
+import { EXAMPLE_FEATURES, FEATURE_NAMES } from '@/lib/types';
+import { useState } from 'react';
 import ResultCard from './ResultCard';
 
 export default function PredictionForm() {
@@ -29,9 +29,7 @@ export default function PredictionForm() {
     }
 
     // Parse comma or whitespace separated values
-    const values = trimmed
-      .split(/[\s,]+/)
-      .filter(v => v.length > 0);
+    const values = trimmed.split(/[\s,]+/).filter((v) => v.length > 0);
 
     if (values.length !== 30) {
       setError(`Expected 30 values, got ${values.length}`);
@@ -45,7 +43,42 @@ export default function PredictionForm() {
   };
 
   const handleLoadExample = () => {
-    setFeatures(EXAMPLE_FEATURES.map(f => String(f)));
+    setFeatures(EXAMPLE_FEATURES.map((f) => String(f)));
+    setError(null);
+    setValidationErrors([]);
+    setResult(null);
+  };
+
+  const generateRandomFeatures = () => {
+    // Generate random values with reasonable ranges for each feature type
+    const randomFeatures: number[] = [];
+
+    for (let i = 0; i < 30; i++) {
+      const featureName = FEATURE_NAMES[i];
+      let value: number;
+
+      if (featureName.includes('area')) {
+        // Area features: larger values (200-2500)
+        value = Math.random() * 2300 + 200;
+      } else if (featureName.includes('perimeter')) {
+        // Perimeter features: medium-large values (50-250)
+        value = Math.random() * 200 + 50;
+      } else if (featureName.includes('radius')) {
+        // Radius features: small-medium values (5-35)
+        value = Math.random() * 30 + 5;
+      } else if (featureName.includes('texture')) {
+        // Texture features: small-medium values (5-40)
+        value = Math.random() * 35 + 5;
+      } else {
+        // Other features (smoothness, compactness, etc.): small decimals (0-1)
+        value = Math.random();
+      }
+
+      // Round to reasonable precision
+      randomFeatures.push(Math.round(value * 10000) / 10000);
+    }
+
+    setFeatures(randomFeatures.map((f) => String(f)));
     setError(null);
     setValidationErrors([]);
     setResult(null);
@@ -66,9 +99,13 @@ export default function PredictionForm() {
     features.forEach((feature, index) => {
       const value = parseFloat(feature);
       if (feature.trim() === '') {
-        errors.push(`Feature ${index + 1} (${FEATURE_NAMES[index]}) is required`);
+        errors.push(
+          `Feature ${index + 1} (${FEATURE_NAMES[index]}) is required`,
+        );
       } else if (isNaN(value) || !isFinite(value)) {
-        errors.push(`Feature ${index + 1} (${FEATURE_NAMES[index]}) must be a valid number`);
+        errors.push(
+          `Feature ${index + 1} (${FEATURE_NAMES[index]}) must be a valid number`,
+        );
       } else {
         values.push(value);
       }
@@ -94,24 +131,31 @@ export default function PredictionForm() {
       setResult(response);
     } catch (err: any) {
       if (err.status === 503) {
-        setError('Model not loaded. Please wait for the model to load and try again.');
+        setError(
+          'Model not loaded. Please wait for the model to load and try again.',
+        );
       } else if (err.status === 422) {
         setError(err.message || 'Validation error: Invalid input data');
       } else if (err.status && err.status >= 500) {
         setError('Server error. Please try again later.');
       } else {
-        setError(err instanceof Error ? err.message : 'Failed to make prediction');
+        setError(
+          err instanceof Error ? err.message : 'Failed to make prediction',
+        );
       }
     } finally {
       setLoading(false);
     }
   };
 
-  const canSubmit = features.every(f => f.trim() !== '') && validationErrors.length === 0;
+  const canSubmit =
+    features.every((f) => f.trim() !== '') && validationErrors.length === 0;
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
-      <h2 className="text-xl font-bold text-gray-800 mb-4">Make a Prediction</h2>
+      <h2 className="text-xl font-bold text-gray-800 mb-4">
+        Make a Prediction
+      </h2>
 
       {/* Paste and Load Example Section */}
       <div className="mb-6 p-4 bg-gray-50 rounded-md space-y-3">
@@ -146,6 +190,13 @@ export default function PredictionForm() {
           </button>
           <button
             type="button"
+            onClick={generateRandomFeatures}
+            className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 transition-colors"
+          >
+            Generate Random
+          </button>
+          <button
+            type="button"
             onClick={handleClear}
             className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 transition-colors"
           >
@@ -170,7 +221,9 @@ export default function PredictionForm() {
               <li key={idx}>{err}</li>
             ))}
             {validationErrors.length > 5 && (
-              <li className="text-gray-600">... and {validationErrors.length - 5} more</li>
+              <li className="text-gray-600">
+                ... and {validationErrors.length - 5} more
+              </li>
             )}
           </ul>
         </div>
