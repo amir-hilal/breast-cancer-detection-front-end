@@ -8,8 +8,7 @@ import type {
   PredictionResponse,
 } from './types';
 
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL || '/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || '/api';
 const DEFAULT_TIMEOUT = 30000; // 30 seconds (increased for serverless functions)
 
 class ApiClient {

@@ -16,7 +16,7 @@ export async function GET() {
   } catch (error) {
     return NextResponse.json(
       { detail: 'Failed to connect to backend API' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
