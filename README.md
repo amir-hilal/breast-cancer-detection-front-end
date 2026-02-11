@@ -1,5 +1,14 @@
 # Breast Cancer Detection Frontend
 
+This project is a breast cancer detector that uses machine learning to classify tumors as benign or malignant based on 30 medical features. This is the frontend application built with Next.js that provides an intuitive interface for interacting with the ML model.
+
+## 🔗 Links
+
+- **Live Demo**: [https://breast-cancer-detection-ml.netlify.app/](https://breast-cancer-detection-ml.netlify.app/)
+- **ML Backend Repository**: [https://github.com/amir-hilal/breast-cancer-ml](https://github.com/amir-hilal/breast-cancer-ml)
+
+## Overview
+
 A production-ready Next.js frontend application for breast cancer detection ML inference, consuming a FastAPI backend.
 
 ## Features
