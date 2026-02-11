@@ -62,9 +62,15 @@ export default function ModelInfoCard() {
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
-      <h2 className="text-xl font-bold text-gray-800 mb-4">
-        Model Information
-      </h2>
+      <div className="flex items-center gap-2 mb-4">
+        <h2 className="text-xl font-bold text-gray-800">
+          Model Information
+        </h2>
+        <span className="flex h-3 w-3">
+          <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-green-400 opacity-75"></span>
+          <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+        </span>
+      </div>
 
       {modelInfo && (
         <div className="space-y-3">
@@ -75,23 +81,9 @@ export default function ModelInfoCard() {
             </span>
           </div>
           <div className="grid grid-cols-3 gap-2">
-            <span className="text-gray-600">Model Path:</span>
-            <span className="col-span-2 font-mono text-sm text-gray-800 break-all">
-              {modelInfo.model_path}
-            </span>
-          </div>
-          <div className="grid grid-cols-3 gap-2">
             <span className="text-gray-600">Version:</span>
             <span className="col-span-2 font-mono text-sm text-gray-800">
               {modelInfo.model_version}
-            </span>
-          </div>
-          <div className="grid grid-cols-3 gap-2">
-            <span className="text-gray-600">Loaded:</span>
-            <span
-              className={`col-span-2 font-semibold ${modelInfo.loaded ? 'text-green-600' : 'text-red-600'}`}
-            >
-              {modelInfo.loaded ? 'Yes' : 'No'}
             </span>
           </div>
 
