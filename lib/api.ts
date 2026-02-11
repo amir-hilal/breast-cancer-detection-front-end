@@ -9,8 +9,8 @@ import type {
 } from './types';
 
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL || 'http://54.87.178.118:8000';
-const DEFAULT_TIMEOUT = 10000; // 10 seconds
+  process.env.NEXT_PUBLIC_API_BASE_URL || '/api';
+const DEFAULT_TIMEOUT = 30000; // 30 seconds (increased for serverless functions)
 
 class ApiClient {
   private baseUrl: string;
