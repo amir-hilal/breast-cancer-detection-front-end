@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-const BACKEND_URL = process.env.BACKEND_API_URL || 'http://54.87.178.118:8000';
+const BACKEND_URL = process.env.BACKEND_API_URL || 'http://54.226.76.206:8000';
 
 export async function GET() {
   try {
