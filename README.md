@@ -66,7 +66,7 @@ breast-cancer-detection-front-end/
 
    Edit `.env.local` to set your API URL:
    ```
-   NEXT_PUBLIC_API_BASE_URL=http://3.91.8.186:8000
+   NEXT_PUBLIC_API_BASE_URL=http://54.87.178.118:8000
    ```
 
 4. **Run the development server**

@@ -62,7 +62,7 @@ export default function HomePage() {
         <footer className="mt-8 text-center text-sm text-gray-500">
           <p>
             Powered by FastAPI + Next.js | API:{' '}
-            {process.env.NEXT_PUBLIC_API_BASE_URL || 'http://3.91.8.186:8000'}
+            {process.env.NEXT_PUBLIC_API_BASE_URL || 'http://54.87.178.118:8000'}
           </p>
         </footer>
       </div>

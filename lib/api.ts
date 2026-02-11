@@ -9,21 +9,24 @@ import type {
 } from './types';
 
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL || 'http://3.91.8.186:8000';
+  process.env.NEXT_PUBLIC_API_BASE_URL || 'http://54.87.178.118:8000';
 const DEFAULT_TIMEOUT = 10000; // 10 seconds
 
 class ApiClient {
   private baseUrl: string;
   private timeout: number;
 
-  constructor(baseUrl: string = API_BASE_URL, timeout: number = DEFAULT_TIMEOUT) {
+  constructor(
+    baseUrl: string = API_BASE_URL,
+    timeout: number = DEFAULT_TIMEOUT,
+  ) {
     this.baseUrl = baseUrl.replace(/\/$/, ''); // Remove trailing slash
     this.timeout = timeout;
   }
 
   private async fetchWithTimeout(
     url: string,
-    options: RequestInit = {}
+    options: RequestInit = {},
   ): Promise<Response> {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), this.timeout);
