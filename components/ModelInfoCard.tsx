@@ -63,9 +63,7 @@ export default function ModelInfoCard() {
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
       <div className="flex items-center gap-2 mb-4">
-        <h2 className="text-xl font-bold text-gray-800">
-          Model Information
-        </h2>
+        <h2 className="text-xl font-bold text-gray-800">Model Information</h2>
         <span className="flex h-3 w-3">
           <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-green-400 opacity-75"></span>
           <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
