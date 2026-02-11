@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
 import { apiClient } from '@/lib/api';
 import type { HealthResponse } from '@/lib/types';
+import { useState } from 'react';
 
 export default function ApiStatusCard() {
   const [health, setHealth] = useState<HealthResponse | null>(null);
@@ -16,7 +16,9 @@ export default function ApiStatusCard() {
       const data = await apiClient.getHealth();
       setHealth(data);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch health status');
+      setError(
+        err instanceof Error ? err.message : 'Failed to fetch health status',
+      );
     } finally {
       setLoading(false);
     }
@@ -70,22 +72,20 @@ export default function ApiStatusCard() {
             <span className="text-gray-600">Status:</span>
             {getStatusBadge(health.status)}
           </div>
-          <div className="flex items-center justify-between">
-            <span className="text-gray-600">Model Loaded:</span>
-            <span className={`font-semibold ${health.model_loaded ? 'text-green-600' : 'text-red-600'}`}>
-              {health.model_loaded ? 'Yes' : 'No'}
-            </span>
-          </div>
           {health.model_version && (
             <div className="flex items-center justify-between">
               <span className="text-gray-600">Model Version:</span>
-              <span className="font-mono text-sm text-gray-800">{health.model_version}</span>
+              <span className="font-mono text-sm text-gray-800">
+                {health.model_version}
+              </span>
             </div>
           )}
           {health.promoted_at && (
             <div className="flex items-center justify-between">
               <span className="text-gray-600">Promoted At:</span>
-              <span className="text-sm text-gray-800">{new Date(health.promoted_at).toLocaleString()}</span>
+              <span className="text-sm text-gray-800">
+                {new Date(health.promoted_at).toLocaleString()}
+              </span>
             </div>
           )}
         </div>
